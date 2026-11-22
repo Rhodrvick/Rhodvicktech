@@ -40,3 +40,8 @@ footer .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .small{font-size:12px;color:#777}
 @media(max-width:800px){.hero-grid,.split,.contact{grid-template-columns:1fr}.hero{padding:70px 0}.hero-mark{order:-1}.hero-mark img{width:190px}.cards{grid-template-columns:1fr 1fr}nav{display:none;position:absolute;top:76px;left:0;right:0;background:#0b1423;padding:20px 4%;border-bottom:1px solid #294566;flex-direction:column;align-items:flex-start}.nav.open nav{display:flex}.menu{display:block}.nav>.btn{display:none}}
 @media(max-width:540px){.cards,.location-box{grid-template-columns:1fr}.section{padding:62px 0}.brand{font-size:13px}.brand img{width:42px;height:42px}h1{letter-spacing:-1.5px}}
+
+/* Authentication gate: keep protected page hidden until Supabase confirms a session. */
+html:not(.authenticated) body{visibility:hidden}
+.nav-logout{background:transparent;border:1px solid #27c5ff;color:#9bdfff;border-radius:6px;padding:8px 13px;font:inherit;font-size:13px;cursor:pointer}
+.nav-logout:hover{background:#27c5ff;color:#04101f}

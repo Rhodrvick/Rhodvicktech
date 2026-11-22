@@ -49,7 +49,13 @@ form.addEventListener("submit", async (event) => {
   }
 
   if (isSignUp && !result.data.session) {
-    showMessage("Account created. Check your email to confirm your address, then sign in here.");
+    // Supabase email confirmation is enabled: make the next step unmistakable.
+    isSignUp = false;
+    title.textContent = "Check your email.";
+    intro.textContent = "We've sent you a verification link. Confirm your email address before signing in.";
+    submit.textContent = "Sign in";
+    toggle.textContent = "Need to create another account?";
+    showMessage("📩 Verification email sent to " + email + ". Open your inbox, click the Confirm email link, then return here and sign in. If you don't see it, check your Spam or Junk folder.", false);
     return;
   }
 

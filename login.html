@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d18">
+<title>Sign in | RHODVICK TECH</title>
+<link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+<link rel="stylesheet" href="login.css">
+<script type="module" src="login.js"></script>
+</head>
+<body>
+<main class="auth-wrap">
+  <section class="auth-card">
+    <a class="brand" href="./login.html"><img src="assets/logo.jpg" alt="RHODVICK TECH logo"><span>RHODVICK TECH</span></a>
+    <p class="eyebrow">MEMBER ACCESS</p>
+    <h1 id="formTitle">Welcome back.</h1>
+    <p class="intro" id="formIntro">Sign in to continue to the RHODVICK TECH website.</p>
+    <form id="authForm">
+      <label for="email">Email address</label>
+      <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" minlength="6" placeholder="At least 6 characters" required>
+      <button class="submit" id="submitBtn" type="submit">Sign in</button>
+    </form>
+    <p class="message" id="message" role="status" aria-live="polite"></p>
+    <button class="text-btn" id="toggleMode" type="button">New here? Create an account</button>
+    <a class="back-link" href="https://wa.me/254115790827">Need help? Contact RHODVICK TECH</a>
+  </section>
+</main>
+</body>
+</html>

@@ -12,7 +12,11 @@ label{display:block;margin:17px 0 7px;font-size:13px;color:#dce8f7}
 input{width:100%;padding:14px;border-radius:8px;border:1px solid #36516f;background:#091321;color:white;font-size:15px;outline:none}
 input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #39ff1420}
 .submit{width:100%;margin-top:24px;padding:14px;border:0;border-radius:8px;background:linear-gradient(135deg,#39ff14,#20c900);font-weight:800;color:#071006;font-size:15px;cursor:pointer}
-.submit:disabled{opacity:.6;cursor:wait}
+.submit:disabled,.google-btn:disabled{opacity:.6;cursor:wait}
+.or-divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:#91a7c1;font-size:11px}
+.or-divider:before,.or-divider:after{content:"";height:1px;background:#294566;flex:1}
+.google-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:13px;border:1px solid #49617d;border-radius:8px;background:#f8fafc;color:#172033;font-size:14px;font-weight:700;cursor:pointer}
+.google-g{font-size:19px;font-weight:900;color:#4285f4}
 .message{min-height:22px;color:#b6ff9f;font-size:13px;line-height:1.5}
 .text-btn{display:block;margin:12px auto;background:none;border:0;color:var(--cyan);cursor:pointer;font-size:14px}
 .back-link{display:block;margin-top:28px;text-align:center;color:#91a7c1;text-decoration:none;font-size:12px}

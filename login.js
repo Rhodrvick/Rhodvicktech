@@ -2,11 +2,10 @@ import { auth } from "./firebase-client.js";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithRedirect,
   onAuthStateChanged,
-  signOut
+  reload
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 const form = document.getElementById("authForm");
@@ -14,8 +13,12 @@ const title = document.getElementById("formTitle");
 const intro = document.getElementById("formIntro");
 const submit = document.getElementById("submitBtn");
 const toggle = document.getElementById("toggleMode");
-const googleButton = document.getElementById("googleBtn");
+const forgotPassword = document.getElementById("forgotPassword");
+const verificationActions = document.getElementById("verificationActions");
+const resendVerification = document.getElementById("resendVerification");
+const checkVerification = document.getElementById("checkVerification");
 const message = document.getElementById("message");
+const emailInput = document.getElementById("email");
 let isSignUp = false;
 let busy = false;
 
@@ -24,13 +27,11 @@ const showMessage = (text, isError = false) => {
   message.style.color = isError ? "#ff9c9c" : "#b6ff9f";
 };
 
-async function prepareWebsiteAccess(user) {
-  if (!user.emailVerified) {
-    await signOut(auth);
-    showMessage("Please verify your email first. Open the verification link we sent you, then return and sign in.", true);
-    return false;
-  }
+function showVerificationActions(show = true) {
+  verificationActions.style.display = show ? "block" : "none";
+}
 
+async function prepareWebsiteAccess(user) {
   const idToken = await user.getIdToken();
   const response = await fetch("/api/bootstrap-user", {
     method: "POST",
@@ -48,25 +49,25 @@ async function finishLogin(user) {
   if (busy) return;
   busy = true;
   submit.disabled = true;
-  googleButton.disabled = true;
   showMessage("Securing your account...");
   try {
-    const ready = await prepareWebsiteAccess(user);
-    if (ready) {
-      showMessage("You're in! Opening RHODVICK TECH...");
-      window.location.replace("./index.html");
-    }
+    await prepareWebsiteAccess(user);
+    showMessage("You're in! Opening RHODVICK TECH...");
+    window.location.replace("./index.html");
   } catch (error) {
     showMessage(error.message, true);
   } finally {
     busy = false;
     submit.disabled = false;
-    googleButton.disabled = false;
   }
 }
 
 onAuthStateChanged(auth, (user) => {
-  if (user && user.emailVerified) finishLogin(user);
+  if (user?.emailVerified) {
+    finishLogin(user);
+  } else if (user) {
+    showVerificationActions(true);
+  }
 });
 
 toggle.addEventListener("click", () => {
@@ -78,34 +79,36 @@ toggle.addEventListener("click", () => {
   submit.textContent = isSignUp ? "Create account" : "Sign in";
   toggle.textContent = isSignUp ? "Already registered? Sign in" : "New here? Create an account";
   document.getElementById("password").autocomplete = isSignUp ? "new-password" : "current-password";
+  forgotPassword.style.display = isSignUp ? "none" : "inline-block";
+  showVerificationActions(false);
   showMessage("");
 });
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const email = document.getElementById("email").value.trim();
+  const email = emailInput.value.trim();
   const password = document.getElementById("password").value;
   submit.disabled = true;
-  googleButton.disabled = true;
   submit.textContent = isSignUp ? "Creating account..." : "Signing in...";
+  showVerificationActions(false);
   showMessage("");
 
   try {
     if (isSignUp) {
       const credential = await createUserWithEmailAndPassword(auth, email, password);
       await sendEmailVerification(credential.user);
-      await signOut(auth);
       isSignUp = false;
       title.textContent = "Check your email.";
-      intro.textContent = "Your account is created. Verify your email before signing in.";
-      submit.textContent = "Sign in";
+      intro.textContent = "Your account is created. Verify your email before accessing the website.";
       toggle.textContent = "New here? Create an account";
-      showMessage("📩 Verification email sent to " + email + ". Open it and click the verification link, then come back here to sign in.");
+      forgotPassword.style.display = "inline-block";
+      showVerificationActions(true);
+      showMessage("📩 Verification email sent to " + email + ". Open the link in that email, then return and tap “I've verified my email”.");
     } else {
       const credential = await signInWithEmailAndPassword(auth, email, password);
       if (!credential.user.emailVerified) {
-        await signOut(auth);
-        showMessage("Your email isn't verified yet. Check your inbox (and Spam folder), open the Firebase verification email, then sign in again.", true);
+        showVerificationActions(true);
+        showMessage("Your email isn't verified yet. Check your inbox and Spam folder, then use the buttons below.", true);
       } else {
         await finishLogin(credential.user);
       }
@@ -121,20 +124,58 @@ form.addEventListener("submit", async (event) => {
     showMessage(messages[error.code] || error.message, true);
   } finally {
     submit.disabled = false;
-    googleButton.disabled = false;
     submit.textContent = isSignUp ? "Create account" : "Sign in";
   }
 });
 
-googleButton.addEventListener("click", async () => {
-  showMessage("Opening Google sign-in...");
-  googleButton.disabled = true;
+forgotPassword.addEventListener("click", async () => {
+  const email = emailInput.value.trim();
+  if (!email) {
+    showMessage("Enter your email address first, then tap Forgot password again.", true);
+    emailInput.focus();
+    return;
+  }
   try {
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: "select_account" });
-    await signInWithRedirect(auth, provider);
+    await sendPasswordResetEmail(auth, email);
+    showMessage("📩 If an account exists for " + email + ", Firebase has sent a password reset link. Check your inbox and Spam folder.");
   } catch (error) {
-    googleButton.disabled = false;
+    const messages = {
+      "auth/invalid-email": "Please enter a valid email address.",
+      "auth/too-many-requests": "Too many requests. Please wait a little before trying again."
+    };
+    showMessage(messages[error.code] || error.message, true);
+  }
+});
+
+resendVerification.addEventListener("click", async () => {
+  const user = auth.currentUser;
+  if (!user) {
+    showMessage("Please sign in with your email and password first so we can resend the verification email.", true);
+    return;
+  }
+  try {
+    await sendEmailVerification(user);
+    showMessage("📩 A new verification email has been sent. Check your inbox and Spam folder.");
+  } catch (error) {
+    showMessage(error.message, true);
+  }
+});
+
+checkVerification.addEventListener("click", async () => {
+  const user = auth.currentUser;
+  if (!user) {
+    showMessage("Please sign in again after opening the verification link.", true);
+    showVerificationActions(false);
+    return;
+  }
+  try {
+    await reload(user);
+    if (auth.currentUser.emailVerified) {
+      await finishLogin(auth.currentUser);
+    } else {
+      showMessage("We haven't detected verification yet. Open the email link first, then tap this button again.", true);
+    }
+  } catch (error) {
     showMessage(error.message, true);
   }
 });

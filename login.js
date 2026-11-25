@@ -73,21 +73,23 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-toggle.addEventListener("click", () => {
-  isSignUp = !isSignUp;
-  title.textContent = isSignUp ? "Create your account." : "Welcome back.";
+function setAuthMode(signUp) {
+  isSignUp = signUp;
+  title.textContent = isSignUp ? "Sign Up" : "Sign In";
   intro.textContent = isSignUp
-    ? "Create an account to access the RHODVICK TECH website."
-    : "Sign in to continue to the RHODVICK TECH website.";
-  submit.textContent = isSignUp ? "Create account" : "Sign in";
-  toggle.textContent = isSignUp ? "Sign In" : "Sign Up";
+    ? "Create an account to get started."
+    : "Welcome back. Sign in to get started.";
+  submit.textContent = isSignUp ? "Create Account  →" : "Sign In  →";
   signInTab.classList.toggle("active", !isSignUp);
   toggle.classList.toggle("active", isSignUp);
-  document.getElementById("password").autocomplete = isSignUp ? "new-password" : "current-password";
+  document.body.classList.toggle("signup-mode", isSignUp);
+  passwordInput.autocomplete = isSignUp ? "new-password" : "current-password";
   forgotPassword.style.display = isSignUp ? "none" : "inline-block";
   showVerificationActions(false);
   showMessage("");
-});
+}
+signInTab.addEventListener("click", () => setAuthMode(false));
+toggle.addEventListener("click", () => setAuthMode(true));
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -105,7 +107,7 @@ form.addEventListener("submit", async (event) => {
       isSignUp = false;
       title.textContent = "Check your email.";
       intro.textContent = "Your account is created. Verify your email before accessing the website.";
-      toggle.textContent = "New here? Create an account";
+      setAuthMode(false);
       forgotPassword.style.display = "inline-block";
       showVerificationActions(true);
       showMessage("📩 Verification email sent to " + email + ". Open the link in that email, then return and tap “I've verified my email”.");

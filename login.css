@@ -32,3 +32,13 @@ label{display:block;margin:14px 0 7px;color:#dce9df;font-size:11px;font-weight:7
 @media(max-width:900px){.auth-shell{grid-template-columns:.75fr 1fr;gap:24px;padding:35px 28px}.lamp-scene{transform:scale(.85)}.visual-caption{width:290px}.auth-card{padding:30px 28px}}
 @media(max-width:650px){.auth-shell{grid-template-columns:1fr;padding:25px 17px;gap:0}.visual-side{display:none}.auth-side{min-height:calc(100vh - 50px);align-items:center}.auth-card{width:min(100%,430px);padding:32px 25px 26px}h1{font-size:40px}}
 @media(prefers-reduced-motion:no-preference){.lamp-glow{animation:glowPulse 4s ease-in-out infinite}.sparkle{animation:sparkle 3s ease-in-out infinite}@keyframes glowPulse{50%{opacity:.6;transform:scale(1.08)}}@keyframes sparkle{50%{transform:rotate(35deg);opacity:.5}}}
+
+/* Sign-up state: the desk lamp switches on and the emerald ambience brightens. */
+.mode-label{font-family:inherit}
+body.signup-mode .auth-shell{background:radial-gradient(ellipse at 24% 47%,rgba(0,211,111,.62),transparent 46%),radial-gradient(ellipse at 78% 20%,rgba(37,150,91,.38),transparent 40%),linear-gradient(115deg,#103c28,#071b13 72%)}
+body.signup-mode .ambient-one{background:#00f58a35}
+body.signup-mode .lamp-glow{opacity:1;background:radial-gradient(circle,#8affc477 0%,#24e98b35 42%,transparent 73%);filter:blur(13px)}
+body.signup-mode .lamp-shade:after{box-shadow:0 0 18px #6dffbb,0 0 42px #25ff9a;filter:brightness(1.25)}
+body.signup-mode .lamp-scene{filter:drop-shadow(0 24px 22px #0008) drop-shadow(0 0 18px #3aff9b30)}
+body.signup-mode .auth-card{border-color:rgba(106,255,172,.38);box-shadow:0 30px 90px #0008,0 0 35px #00d97812,inset 0 1px #ffffff18}
+body.signup-mode .submit{background:linear-gradient(100deg,#13f58b,#00bd69)}

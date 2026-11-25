@@ -1,24 +1,29 @@
 :root{--bg:#080d18;--panel:#101a2b;--panel2:#14233a;--white:#f7faff;--muted:#aab8cc;--line:#263852;--accent:#39ff14;--blue:#20c900}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:110px}body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
 a{color:inherit;text-decoration:none}.wrap{width:min(1120px,92%);margin:auto}
-header{position:sticky;top:0;z-index:10;background:rgba(8,8,8,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:1.5px}.brand img{width:48px;height:48px;object-fit:contain;background:#000;border-radius:8px;animation:brandPulse 3.8s ease-in-out infinite;}
-nav{display:flex;align-items:center;gap:25px;font-size:14px;color:#ddd}nav a:hover{color:#39ff14}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 19px;border-radius:6px;background:linear-gradient(135deg,#39ff14,#20c900);color:#071006;font-weight:700;font-size:14px;transition:.2s}
-.btn:hover{transform:translateY(-2px);background:#a0ff8a}.btn.outline{background:transparent;color:#fff;border:1px solid #39ff14}.btn.outline:hover{background:#39ff14;color:#071006}
-.menu{display:none;background:none;border:1px solid #444;color:#fff;border-radius:6px;padding:8px 11px;font-size:20px}
-.hero{padding:100px 0 90px;background:radial-gradient(ellipse at 78% 35%,#163d12 0%,#101a2b 30%,#080d18 72%)}
+header{position:fixed;top:14px;left:0;right:0;z-index:100;background:transparent;border:0;pointer-events:none}
+.nav{pointer-events:auto;min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:10px 18px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(225,245,239,.12);backdrop-filter:blur(18px) saturate(155%);-webkit-backdrop-filter:blur(18px) saturate(155%);box-shadow:0 12px 38px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.2);transition:background .3s,border-color .3s,box-shadow .3s}
+.nav:hover{background:rgba(225,245,239,.16);border-color:rgba(57,255,20,.35);box-shadow:0 14px 42px rgba(0,0,0,.32),0 0 22px rgba(57,255,20,.07),inset 0 1px 0 rgba(255,255,255,.22)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:1.3px;white-space:nowrap}.brand img{width:46px;height:46px;object-fit:contain;background:#000;border-radius:50%;animation:brandPulse 3.8s ease-in-out infinite}
+nav{display:flex;align-items:center;justify-content:center;gap:clamp(12px,2.2vw,30px);font-size:14px;color:#e9f2ec}
+nav a{position:relative;padding:9px 2px;transition:color .25s,text-shadow .25s}
+nav a:after{content:"";position:absolute;left:50%;right:50%;bottom:2px;height:2px;border-radius:3px;background:var(--accent);box-shadow:0 0 10px rgba(57,255,20,.75);transition:left .25s,right .25s}
+nav a:hover,nav a:focus-visible{color:#baffaa;text-shadow:0 0 12px rgba(57,255,20,.35)}
+nav a:hover:after,nav a:focus-visible:after{left:0;right:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 19px;border-radius:999px;background:linear-gradient(135deg,#39ff14,#20c900);color:#071006;font-weight:700;font-size:14px;transition:.2s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px);background:#a0ff8a;box-shadow:0 0 20px rgba(57,255,20,.25)}.btn.outline{background:transparent;color:#fff;border:1px solid #39ff14}.btn.outline:hover{background:#39ff14;color:#071006}
+.menu{display:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer}
+.hero{padding:150px 0 90px;background:radial-gradient(ellipse at 78% 35%,#163d12 0%,#101a2b 30%,#080d18 72%)}
 .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:50px}
 .eyebrow{color:#8cff65;text-transform:uppercase;letter-spacing:3px;font-size:12px;font-weight:700}
 h1{font-size:clamp(42px,6vw,72px);line-height:1.03;letter-spacing:-2px;margin:18px 0}
 h1 span{color:#b6ff9f}.lead{max-width:620px;color:#bbb;font-size:18px;margin:0 0 28px}
 .actions{display:flex;gap:12px;flex-wrap:wrap}.hero-mark{display:flex;justify-content:center;align-items:center}
-.hero-mark img{width:min(100%,350px);aspect-ratio:1;object-fit:contain;background:#000;border:1px solid #292929;border-radius:24px;box-shadow:0 25px 80px #000;animation:logoFloat 5s ease-in-out infinite,logoGlow 4s ease-in-out infinite;} 
+.hero-mark img{width:min(100%,350px);aspect-ratio:1;object-fit:contain;background:#000;border:1px solid #292929;border-radius:24px;box-shadow:0 25px 80px #000;animation:logoFloat 5s ease-in-out infinite,logoGlow 4s ease-in-out infinite}
 @keyframes logoFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(.5deg)}}
 @keyframes logoGlow{0%,100%{box-shadow:0 25px 80px rgba(0,0,0,.65),0 0 0 rgba(57,255,20,0)}50%{box-shadow:0 25px 80px rgba(0,0,0,.65),0 0 28px rgba(57,255,20,.28)}}
 @keyframes brandPulse{0%,100%{filter:drop-shadow(0 0 0 rgba(57,255,20,0))}50%{filter:drop-shadow(0 0 8px rgba(57,255,20,.42))}}
-@media(prefers-reduced-motion:reduce){.brand img,.hero-mark img{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.brand img,.hero-mark img{animation:none!important}*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 .section{padding:82px 0}.section.alt{background:#0b1423;border-top:1px solid #203650;border-bottom:1px solid #203650}
 .kicker{color:#7dff57;text-transform:uppercase;letter-spacing:2.5px;font-size:12px;font-weight:700}
 h2{font-size:clamp(30px,4vw,44px);line-height:1.15;margin:10px 0 14px;letter-spacing:-1px}
@@ -38,10 +43,10 @@ h2{font-size:clamp(30px,4vw,44px);line-height:1.15;margin:10px 0 14px;letter-spa
 footer{padding:26px 0;border-top:1px solid #263852;color:#8fa4bf;font-size:13px}
 footer .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .small{font-size:12px;color:#777}
-@media(max-width:800px){.hero-grid,.split,.contact{grid-template-columns:1fr}.hero{padding:70px 0}.hero-mark{order:-1}.hero-mark img{width:190px}.cards{grid-template-columns:1fr 1fr}nav{display:none;position:absolute;top:76px;left:0;right:0;background:#0b1423;padding:20px 4%;border-bottom:1px solid #294566;flex-direction:column;align-items:flex-start}.nav.open nav{display:flex}.menu{display:block}.nav>.btn{display:none}}
-@media(max-width:540px){.cards,.location-box{grid-template-columns:1fr}.section{padding:62px 0}.brand{font-size:13px}.brand img{width:42px;height:42px}h1{letter-spacing:-1.5px}}
-
-/* Authentication gate: keep protected page hidden until Supabase confirms a session. */
+@media(max-width:900px){.nav{gap:12px;padding:9px 13px}.brand{font-size:12px;letter-spacing:.8px}.brand img{width:40px;height:40px}nav{gap:13px;font-size:13px}.nav>.btn{padding:10px 13px;font-size:12px}}
+@media(max-width:700px){header{top:10px}.nav{min-height:64px;border-radius:22px;padding:9px 12px}.menu{display:block;order:3}.nav>.btn{display:none}.brand{font-size:13px}.brand img{width:40px;height:40px}nav{display:none;position:absolute;top:calc(100% + 10px);left:4%;right:4%;padding:16px;background:rgba(13,27,34,.88);border:1px solid rgba(255,255,255,.25);border-radius:22px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 16px 40px rgba(0,0,0,.4);flex-direction:column;align-items:stretch;gap:4px}nav a{padding:10px 12px}nav a:after{display:none}.nav.open nav{display:flex}.nav-logout{margin:5px 8px;text-align:left}.hero-grid,.split,.contact{grid-template-columns:1fr}.hero{padding:112px 0 70px}.hero-mark{order:-1}.hero-mark img{width:190px}.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.cards,.location-box{grid-template-columns:1fr}.section{padding:62px 0}.brand{font-size:12px}h1{letter-spacing:-1.5px}}
+/* Authentication gate: keep protected page hidden until Firebase confirms a session. */
 html:not(.authenticated) body{visibility:hidden}
-.nav-logout{background:transparent;border:1px solid #39ff14;color:#b6ff9f;border-radius:6px;padding:8px 13px;font:inherit;font-size:13px;cursor:pointer}
-.nav-logout:hover{background:#39ff14;color:#071006}
+.nav-logout{background:rgba(255,255,255,.08);border:1px solid rgba(57,255,20,.7);color:#c7ffbb;border-radius:999px;padding:8px 13px;font:inherit;font-size:13px;cursor:pointer;transition:.2s}
+.nav-logout:hover{background:#39ff14;color:#071006;box-shadow:0 0 15px rgba(57,255,20,.25)}

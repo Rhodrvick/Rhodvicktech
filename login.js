@@ -6,8 +6,6 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   reload,
-  GoogleAuthProvider,
-  signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 const form = document.getElementById("authForm");
@@ -21,7 +19,6 @@ const resendVerification = document.getElementById("resendVerification");
 const checkVerification = document.getElementById("checkVerification");
 const message = document.getElementById("message");
 const emailInput = document.getElementById("email");
-const googleButton = document.getElementById("googleSignIn");
 const togglePassword = document.getElementById("togglePassword");
 const passwordInput = document.getElementById("password");
 const signInTab = document.getElementById("signInTab");
@@ -140,24 +137,6 @@ togglePassword.addEventListener("click", () => {
   const showing = passwordInput.type === "text";
   passwordInput.type = showing ? "password" : "text";
   togglePassword.setAttribute("aria-label", showing ? "Show password" : "Hide password");
-});
-
-googleButton.addEventListener("click", async () => {
-  googleButton.disabled = true;
-  showMessage("Connecting to Google...");
-  try {
-    const result = await signInWithPopup(auth, new GoogleAuthProvider());
-    await finishLogin(result.user);
-  } catch (error) {
-    const messages = {
-      "auth/popup-closed-by-user": "Google sign-in was cancelled.",
-      "auth/popup-blocked": "Your browser blocked the sign-in window. Please allow pop-ups and try again.",
-      "auth/operation-not-allowed": "Google sign-in is not enabled in Firebase Authentication yet."
-    };
-    showMessage(messages[error.code] || error.message, true);
-  } finally {
-    googleButton.disabled = false;
-  }
 });
 
 forgotPassword.addEventListener("click", async () => {

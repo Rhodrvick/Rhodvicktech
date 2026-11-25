@@ -50,3 +50,16 @@ footer .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 html:not(.authenticated) body{visibility:hidden}
 .nav-logout{background:rgba(255,255,255,.08);border:1px solid rgba(57,255,20,.7);color:#c7ffbb;border-radius:999px;padding:8px 13px;font:inherit;font-size:13px;cursor:pointer;transition:.2s}
 .nav-logout:hover{background:#39ff14;color:#071006;box-shadow:0 0 15px rgba(57,255,20,.25)}
+
+
+/* Online service price list */
+.price-area{padding:4px 0 10px}
+.price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px}
+.price-card{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:23px;background:linear-gradient(145deg,#14243a,#0e1727);border:1px solid #294566;border-radius:14px;min-height:170px}
+.price-name{font-size:16px;font-weight:700;color:#f7faff}
+.price{font-size:28px;font-weight:800;color:#8cff65;letter-spacing:-.5px}
+.price-link{margin-top:auto;color:#baffaa;font-size:13px;font-weight:700;border-bottom:1px solid rgba(57,255,20,.55);padding-bottom:2px}
+.price-link:hover{color:#fff;text-shadow:0 0 10px rgba(57,255,20,.45)}
+.price-note{margin:20px 0 0;color:#aab8cc;font-size:13px}
+@media(max-width:700px){.price-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.price-grid{grid-template-columns:1fr}.price-card{min-height:145px}}

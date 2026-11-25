@@ -107,7 +107,9 @@ form.addEventListener("submit", async (event) => {
       isSignUp = false;
       title.textContent = "Check your email.";
       intro.textContent = "Your account is created. Verify your email before accessing the website.";
-      setAuthMode(false);
+      signInTab.classList.add("active");
+      toggle.classList.remove("active");
+      document.body.classList.remove("signup-mode");
       forgotPassword.style.display = "inline-block";
       showVerificationActions(true);
       showMessage("📩 Verification email sent to " + email + ". Open the link in that email, then return and tap “I've verified my email”.");

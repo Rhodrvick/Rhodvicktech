@@ -3,35 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080d18">
+<meta name="theme-color" content="#071a12">
 <title>Sign in | RHODVICK TECH</title>
 <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
 <link rel="stylesheet" href="login.css">
 <script type="module" src="login.js"></script>
 </head>
 <body>
-<main class="auth-wrap">
-  <section class="auth-card">
-    <a class="brand" href="./login.html"><img src="assets/logo.jpg" alt="RHODVICK TECH logo"><span>RHODVICK TECH</span></a>
-    <p class="eyebrow">MEMBER ACCESS</p>
-    <h1 id="formTitle">Welcome back.</h1>
-    <p class="intro" id="formIntro">Sign in to continue to the RHODVICK TECH website.</p>
-    <form id="authForm">
-      <label for="email">Email address</label>
-      <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-      <label for="password">Password</label>
-      <input id="password" type="password" autocomplete="current-password" minlength="6" placeholder="At least 6 characters" required>
-      <button class="text-btn" id="forgotPassword" type="button">Forgot password?</button>
-      <button class="submit" id="submitBtn" type="submit">Sign in</button>
-    </form>
-    <section id="verificationActions" style="display:none" aria-live="polite">
-      <p class="intro">Haven't received the verification email? Check your Spam folder, or resend it below.</p>
-      <button class="text-btn" id="resendVerification" type="button">Resend verification email</button>
-      <button class="text-btn" id="checkVerification" type="button">I've verified my email</button>
-    </section>
-    <p class="message" id="message" role="status" aria-live="polite"></p>
-    <button class="text-btn" id="toggleMode" type="button">New here? Create an account</button>
-    <a class="back-link" href="https://wa.me/254115790827">Need help? Contact RHODVICK TECH</a>
+<main class="auth-shell">
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <section class="visual-side" aria-hidden="true">
+    <div class="lamp-scene">
+      <div class="lamp-glow"></div>
+      <div class="lamp-shade"><span></span></div>
+      <div class="lamp-neck"></div>
+      <div class="lamp-joint"></div>
+      <div class="lamp-stem"></div>
+      <div class="lamp-base"></div>
+      <div class="lamp-foot"></div>
+    </div>
+    <div class="visual-caption"><span class="caption-line"></span><p>Ideas illuminated.<br><strong>Possibilities unlocked.</strong></p></div>
+  </section>
+
+  <section class="auth-side">
+    <div class="auth-card">
+      <div class="card-top"><span class="eyebrow">YOUR SPACE</span><span class="sparkle">✳</span></div>
+      <h1 id="formTitle">Sign In</h1>
+      <p class="intro" id="formIntro">Welcome back. Sign in to get started.</p>
+      <div class="mode-tabs">
+        <span class="mode-label active" id="signInTab">Sign In</span>
+        <button class="mode-label" id="toggleMode" type="button">Sign Up</button>
+      </div>
+      <form id="authForm">
+        <label for="email">Username or Email</label>
+        <div class="input-wrap"><span class="field-icon">✉</span><input id="email" type="email" autocomplete="email" placeholder="Enter username or email" required></div>
+        <div class="password-heading"><label for="password">Password</label><button class="forgot-link" id="forgotPassword" type="button">Forgot?</button></div>
+        <div class="input-wrap"><span class="field-icon">▣</span><input id="password" type="password" autocomplete="current-password" minlength="6" placeholder="Enter password" required><button class="eye-btn" id="togglePassword" type="button" aria-label="Show password">◉</button></div>
+        <label class="remember"><input id="rememberMe" type="checkbox" checked><span>Remember me</span></label>
+        <button class="submit" id="submitBtn" type="submit">Sign In <span>→</span></button>
+      </form>
+      <section id="verificationActions" class="verification" style="display:none" aria-live="polite">
+        <p class="intro">Haven't received the verification email? Check your Spam folder, or resend it below.</p>
+        <button class="text-btn" id="resendVerification" type="button">Resend verification email</button>
+        <button class="text-btn" id="checkVerification" type="button">I've verified my email</button>
+      </section>
+      <p class="message" id="message" role="status" aria-live="polite"></p>
+      <div class="or-divider">OR CONTINUE WITH</div>
+      <button class="google-btn" id="googleSignIn" type="button"><span class="google-g">G</span><span>Google</span></button>
+      <a class="back-link" href="https://wa.me/254115790827">Need help? Contact RHODVICK TECH</a>
+    </div>
   </section>
 </main>
 </body>
